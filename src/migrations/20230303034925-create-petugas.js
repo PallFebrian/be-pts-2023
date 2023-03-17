@@ -2,28 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('masyarakats', {
+    await queryInterface.createTable('petugas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      namaLengkap: {
+      namaPetugas: {
         type: Sequelize.STRING(25),
-        allowNull :false
+        allowNull: false,
       },
       username: {
         type: Sequelize.STRING(25),
-        allowNull :false
+        allowNull: false,
       },
       password: {
         type: Sequelize.STRING(25),
-        allowNull :false
+        allowNull: false,
       },
-      telp: {
+      id_level: {
         type: Sequelize.INTEGER,
-        allowNull :false
+        allowNull: false,
+        onDelete: 'CASCADE',
+        onUPDATE: 'CASCADE',
+        references: {
+          model: "levels",
+          key: "id",
+          as: "id_level"
+        }
       },
       createdAt: {
         allowNull: false,
@@ -36,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('masyarakats');
+    await queryInterface.dropTable('petugas');
   }
 };
